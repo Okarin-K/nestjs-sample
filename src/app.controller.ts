@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -6,12 +6,14 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('hello')
+  getHello(): { name: string } {
+    return { name: 'okarin' };
   }
 
   @Get('/about')
-  getAbout(): string {
-    return 'about';
+  @Render('index')
+  getAbout(): { message: string } {
+    return { message: 'テンプレートエンジンを使ってみたよ' };
   }
 }
